@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Leeon的个人主页</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        body { overflow: hidden; background: #000; }
+
+        #bg-video {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            background: #000; 
+            object-fit: contain; 
+        }
+
+        @media screen and (max-width: 768px) {
+            #bg-video {
+                object-fit: cover; 
+                object-position: center center;
+            }
+        }
+
+        .page-content {
+            position: absolute;
+            top: 20%; 
+            left: 0;
+            width: 100%;
+            z-index: 1;
+            color: #fff;
+            font-family: "Microsoft YaHei", 微软雅黑, Arial, sans-serif;
+            text-align: center;
+            text-shadow: 0 0 10px rgba(0,0,0,0.8);
+            pointer-events: none; 
+        }
+
+        h1 { 
+            font-size: 40px; 
+            margin-bottom: 20px; 
+            font-weight: bold;
+            letter-spacing: 4px;
+        }
+
+        .tip {
+            font-size: 16px;
+            color: #ffd700;
+            margin-bottom: 30px;
+            transition: opacity 0.5s ease;
+            pointer-events: auto; 
+            cursor: pointer; 
+            letter-spacing: 1px;
+        }
+
+        /* 纯透明极简风按钮 */
+        .nav-links {
+            margin-top: 50px;
+            pointer-events: auto; 
+            display: flex;
+            justify-content: center;
+            gap: 40px; 
+        }
+
+        .nav-links a {
+            display: inline-block;
+            padding: 10px 30px;
+            color: #fff;
+            text-decoration: none;
+            font-size: 18px;
+            letter-spacing: 2px;
+            border: 1px solid rgba(255, 255, 255, 0.5); /* 半透明细边框 */
+            border-radius: 4px; /* 微小圆角，更显精致 */
+            background: transparent; /* 完全透明底色，不挡背景 */
+            transition: all 0.3s ease;
+            text-shadow: 0 2px 6px rgba(0, 0, 0, 0.9); /* 强阴影保证文字在亮色背景下清晰可见 */
+        }
+
+        .nav-links a:hover {
+            background: rgba(255, 255, 255, 0.1); /* 鼠标悬浮时微微泛一点白光 */
+            border-color: #fff;
+            box-shadow: 0 0 10px rgba(255, 255, 255, 0.3); /* 悬浮微微发光 */
+            transform: scale(1.05); /* 悬浮稍微放大一点点 */
+        }
+    </style>
+</head>
+<body>
+    <video id="bg-video" autoplay loop muted playsinline webkit-playsinline preload="auto">
+        <source src="bg-video.mp4" type="video/mp4">
+    </video>
+
+    <audio id="bg-audio" loop muted preload="auto">
+        <source src="bg-music.mp3" type="audio/mpeg">
+    </audio>
+
+    <div class="page-content">
+        <h1>Leeon的个人主页</h1>
+        <div class="tip" id="click-tip">点击屏幕开启背景音乐 🎵</div>
+        
+        <div class="nav-links">
+            <a href="blog/index.html">算法笔记博客</a>
+            <a href="resume.html">我的简历</a>
+        </div>
+    </div>
+
+    <script>
+        const audio = document.getElementById('bg-audio');
+        const video = document.getElementById('bg-video'); 
+        const tip = document.getElementById('click-tip');
+        let isInteracted = false; 
+
+        function attemptPlay() {
+            if (isInteracted) return; 
+
+            audio.muted = false;
+            const audioPromise = audio.play();
+            if (audioPromise !== undefined) {
+                audioPromise.catch(error => {
+                    console.error("音频播放被拦截或失败:", error);
+                });
+            }
+
+            video.muted = true; 
+            const videoPromise = video.play();
+            if (videoPromise !== undefined) {
+                videoPromise.catch(error => {
+                    console.error("视频播放被拦截或失败:", error);
+                });
+            }
+
+            isInteracted = true;
+            tip.textContent = "背景音乐已开启 ✨";
+            setTimeout(() => { 
+                tip.style.opacity = '0';
+                setTimeout(() => { tip.style.display = 'none'; }, 500); 
+            }, 2000);
+        }
+
+        document.body.addEventListener('click', attemptPlay);
+        document.body.addEventListener('touchstart', attemptPlay);
+
+        document.addEventListener("WeixinJSBridgeReady", function () {
+            video.play();
+            audio.play();
+        }, false);
+
+        window.addEventListener('load', function() {
+            video.play().catch(() => {});
+        });
+    </script>
+</body>
+</html>
