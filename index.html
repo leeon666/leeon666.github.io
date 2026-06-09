@@ -12,15 +12,22 @@
       href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='18' fill='%23101718'/%3E%3Ccircle cx='32' cy='32' r='22' fill='%23d88a4c'/%3E%3Ccircle cx='32' cy='32' r='14' fill='%235eb7bf'/%3E%3Ccircle cx='32' cy='32' r='6' fill='%23f7efe2'/%3E%3C/svg%3E"
     />
     <title>LEEON | 3D Personal Homepage</title>
-    <script type="module" crossorigin src="/assets/index-CQ1-7DS5.js"></script>
-    <link rel="modulepreload" crossorigin href="/assets/three-rJcUr2Mw.js">
-    <link rel="stylesheet" crossorigin href="/assets/index-P0rIsaJY.css">
+    <script type="module" crossorigin src="/assets/index-CFv3iGkg.js"></script>
+    <link rel="modulepreload" crossorigin href="/assets/three-CwPNJ7gn.js">
+    <link rel="stylesheet" crossorigin href="/assets/index-DrKsDR1o.css">
   </head>
   <body>
     <div id="app">
       <canvas id="world" aria-label="3D personal homepage scene"></canvas>
       <div class="scene-vignette" aria-hidden="true"></div>
       <div class="scene-noise" aria-hidden="true"></div>
+      <button class="look-lock" type="button" aria-label="启用第一人称视角">
+        <span>点击进入第一人称</span>
+        <strong>WASD 移动 · 鼠标转向 · E 进入</strong>
+      </button>
+      <div class="crosshair" aria-hidden="true">
+        <span></span>
+      </div>
 
       <header class="topbar" aria-label="Profile overview">
         <div class="brand">
@@ -101,7 +108,7 @@
 
         <button class="enter-button" type="button" disabled>
           <span class="enter-dot" aria-hidden="true"></span>
-          <span class="enter-label">靠近入口</span>
+          <span class="enter-label">WASD 前往入口</span>
         </button>
       </aside>
 
